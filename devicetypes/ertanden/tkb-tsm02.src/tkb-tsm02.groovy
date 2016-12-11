@@ -100,7 +100,7 @@ def parse(String description)
 
 // Event Generation
 //this notification will be sent only when device is battery powered
-def zwaveEvent(physicalgraph.zwave.commands.wakeupv1.WakeUpNotification cmd) {
+def zwaveEvent(physicalgraph.zwave.commands.wakeupv2.WakeUpNotification cmd) {
     def result = [createEvent(descriptionText: "${device.displayName} woke up", isStateChange: false)]
     def cmds = []
     if (!isConfigured()) {
@@ -108,7 +108,7 @@ def zwaveEvent(physicalgraph.zwave.commands.wakeupv1.WakeUpNotification cmd) {
         result << response(configure())
     } else {
         log.debug("Device has been configured sending >> wakeUpNoMoreInformation()")
-        cmds << zwave.wakeUpV1.wakeUpNoMoreInformation().format()
+        cmds << zwave.wakeUpV2.wakeUpNoMoreInformation().format()
         result << response(cmds)
     }
     result
@@ -215,7 +215,7 @@ def configure() {
             zwave.configurationV1.configurationSet(parameterNumber: 11, size: 1, scaledConfigurationValue: 12).format(), // Auto report Door/Window state time 1-127, default 12
             zwave.configurationV1.configurationSet(parameterNumber: 12, size: 1, scaledConfigurationValue: 12).format(), // Auto report Illumination time 1-127, default 12
             zwave.configurationV1.configurationSet(parameterNumber: 13, size: 1, scaledConfigurationValue: 12).format(), // Auto report Temperature time 1-127, default 12
-            zwave.wakeUpV1.wakeUpIntervalSet(seconds: 24 * 3600, nodeid:zwaveHubNodeId).format(),                        // Wake up every hour
+            zwave.wakeUpV2.wakeUpIntervalSet(seconds: 24 * 3600, nodeid:zwaveHubNodeId).format(),                        // Wake up every hour
 
     ])
 }
