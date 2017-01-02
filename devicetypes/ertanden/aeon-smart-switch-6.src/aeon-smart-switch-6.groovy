@@ -40,12 +40,10 @@ metadata {
         status "off": "command: 2003, payload: 00"
 
         for (int i = 0; i <= 10000; i += 1000) {
-            status "power  ${i} W"
-            new physicalgraph.zwave.Zwave().meterV3.meterReport(scaledMeterValue: i, precision: 3, meterType: 4, scale: 2, size: 4).incomingMessage()
+            status "power  ${i} W": new physicalgraph.zwave.Zwave().meterV3.meterReport(scaledMeterValue: i, precision: 3, meterType: 4, scale: 2, size: 4).incomingMessage()
         }
         for (int i = 0; i <= 100; i += 10) {
-            status "energy  ${i} kWh"
-            new physicalgraph.zwave.Zwave().meterV3.meterReport(scaledMeterValue: i, precision: 3, meterType: 0, scale: 0, size: 4).incomingMessage()
+            status "energy  ${i} kWh": new physicalgraph.zwave.Zwave().meterV3.meterReport(scaledMeterValue: i, precision: 3, meterType: 0, scale: 0, size: 4).incomingMessage()
         }
         // reply messages
         reply "2001FF,delay 100,2502": "command: 2503, payload: FF"
