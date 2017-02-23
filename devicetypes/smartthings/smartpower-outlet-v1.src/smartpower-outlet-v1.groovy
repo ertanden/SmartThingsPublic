@@ -4,6 +4,7 @@ metadata {
 		capability "Actuator"
 		capability "Switch"
 		capability "Sensor"
+		capability "Outlet"
 
 		fingerprint profileId: "0104", inClusters: "0006, 0004, 0003, 0000, 0005", outClusters: "0019", manufacturer: "Compacta International, Ltd", model: "ZBMPlug15", deviceJoinName: "SmartPower Outlet V1"
 	}
@@ -51,7 +52,7 @@ def on() {
 			'zcl on-off on',
 			'delay 200',
 			"send 0x${zigbee.deviceNetworkId} 0x01 0x${zigbee.endpointId}",
-			'delay 500'
+			'delay 2000'
 
 	]
 
@@ -62,6 +63,6 @@ def off() {
 			'zcl on-off off',
 			'delay 200',
 			"send 0x${zigbee.deviceNetworkId} 0x01 0x${zigbee.endpointId}",
-			'delay 500'
+			'delay 2000'
 	]
 }
